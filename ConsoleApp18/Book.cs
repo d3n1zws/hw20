@@ -1,10 +1,10 @@
 ﻿namespace ConsoleApp18;
 
-internal class Book
+public class Book
 {
     static int id = 0;
 
-    public Book(string title, string author, int pageCount, int price, int stockCount, Genre genre)
+    public Book(string title, string author, int pageCount, double price, int stockCount, Genre genre)
     {
         Id = ++id;
         Title = title;
@@ -20,7 +20,7 @@ internal class Book
     public string Title { get; set; }
     public string Author { get; set; }
     public int PageCount { get; set; }
-    public int Price { get; set; }
+    public double Price { get; set; }
     public int StockCount { get; set; }
     public DateTime CreatedAt { get; set; }
     public Genre Genre { get; set; }

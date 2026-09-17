@@ -2,20 +2,26 @@
 using ConsoleApp18.Exceptions;
 namespace ConsoleApp18;
 
-internal class BookService
+public class BookService : IBookService
 {
-    List<Book> books;
+    static List<Book> books = new List<Book>();
     public void Add(Book book)
     {
+        Book? book1 = books.Find(x => x.Author == book.Author && x.Title == book.Title);
+        if (book1 != null)
+        {
+            throw new ConflictException("bele bir kitab var");
+        }
         books.Add(book);
     }
-    public void GetById(int id)
+    public Book GetById(int id)
     {
         Book? book = books.Find(x => x.Id == id);
         if (book == null)
         {
             throw new NotFoundException("yanlis id");
         }
+        return book;
     }
     public List<Book> GetByGenre(Genre genre)
     {
@@ -24,7 +30,7 @@ internal class BookService
     }
     public Book GetMostExpensiveBook()
     {
-        int maks = 0;
+        double maks = 0;
         Book ansbook = books[0];
         foreach (Book book in books)
         {
@@ -38,7 +44,7 @@ internal class BookService
     }
     public Book GetCheapestBook()
     {
-        int mini = int.MaxValue;
+        double mini = int.MaxValue;
         Book ansbook = books[0];
         foreach (Book book in books)
         {
